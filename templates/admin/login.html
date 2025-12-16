@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connexion - Ressourcerie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="app-shell app-shell--auth">
+        <div class="auth-header-image"></div>
+
+        <main class="auth-container">
+            <section class="auth-card">
+                <h1 class="screen-title">Espace équipe</h1>
+                <p class="screen-subtitle">Connectez-vous pour ajouter des produits à la ressourcerie.</p>
+
+                <form method="post" class="form" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="form-error">
+                            {% for error in form.non_field_errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <label class="label" for="{{ form.username.id_for_label }}">Identifiant</label>
+                        {{ form.username }}
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label" for="{{ form.password.id_for_label }}">Mot de passe</label>
+                        {{ form.password }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">Se connecter</button>
+                </form>
+
+                <p class="auth-helper-text">
+                    Vous n'avez pas encore de compte ? Demandez à l'administrateur de vous en créer un.
+                </p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
+
