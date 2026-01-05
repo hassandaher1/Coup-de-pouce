@@ -54,7 +54,9 @@ async function setupPassword(password) {
   localStorage.setItem("ressourcerie_admin_salt", salt);
   localStorage.setItem("ressourcerie_admin_password_hash", hash);
   localStorage.setItem("ressourcerie_admin_user", "admin");
-  console.log("✅ Mot de passe configuré ! Vous pouvez maintenant vous connecter.");
+  console.log(
+    "✅ Mot de passe configuré ! Vous pouvez maintenant vous connecter."
+  );
 }
 
 // Utilisation (remplacez par votre mot de passe)
@@ -85,11 +87,9 @@ await setupPassword("VotreMotDePasseSecurise123!");
 - ✅ Filtrage par catégorie
 - ✅ Modal de détail des produits
 - ✅ Interface d'administration pour ajouter/supprimer des produits
-- ✅ Authentification sécurisée (hashage SHA-256 avec salt)
-- ✅ Gestion des identifiants depuis l'interface admin
+- ✅ Authentification sécurisée
 - ✅ Stockage des données dans le navigateur (localStorage)
 - ✅ Design responsive mobile-first
-- ✅ URLs propres (/admin/ au lieu de admin.html)
 
 ## 📱 Catégories disponibles
 
@@ -130,35 +130,9 @@ const CATEGORIES = {
 };
 ```
 
-## 🔧 Changer le mot de passe via la console
-
-Si vous préférez changer le mot de passe directement, ouvrez la console du navigateur (F12) et exécutez :
-
-```javascript
-// Changer l'identifiant
-localStorage.setItem("ressourcerie_admin_user", "votre-nouvel-identifiant");
-
-// Changer le mot de passe (hashé)
-async function setPassword(newPassword) {
-  const encoder = new TextEncoder();
-  const salt = Array.from(crypto.getRandomValues(new Uint8Array(16)), (b) =>
-    b.toString(16).padStart(2, "0")
-  ).join("");
-  const data = encoder.encode(newPassword + salt);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hash = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-
-  localStorage.setItem("ressourcerie_admin_salt", salt);
-  localStorage.setItem("ressourcerie_admin_password_hash", hash);
-  console.log("Mot de passe mis à jour !");
-}
-await setPassword("VotreMotDePasseSecurise123!");
-```
 
 ## 📝 Notes
 
 - Les images sont converties en base64 et stockées dans localStorage
 - La taille maximale recommandée pour les images est d'environ 1-2 MB par image
 - Le site fonctionne entièrement hors ligne une fois chargé
-- Les identifiants sont stockés dans le localStorage du navigateur
