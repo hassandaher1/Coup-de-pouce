@@ -2,13 +2,13 @@
 
 // Vérifier si déjà connecté
 if (AuthManager.isLoggedIn()) {
-    window.location.href = '/admin/';
+    window.location.href = '/config/';
 }
 
 // Vérifier si un mot de passe a été configuré
 function checkPasswordConfigured() {
-    const hash = localStorage.getItem('ressourcerie_admin_password_hash');
-    const salt = localStorage.getItem('ressourcerie_admin_salt');
+    const hash = localStorage.getItem('r_pwd_hash');
+    const salt = localStorage.getItem('r_salt');
     return !!(hash && salt);
 }
 
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const success = await AuthManager.login(username, password);
             if (success) {
-                window.location.href = '/admin/';
+                window.location.href = '/config/';
             } else {
                 showError('Identifiant ou mot de passe incorrect.');
                 submitBtn.disabled = false;

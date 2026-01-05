@@ -176,7 +176,7 @@ function initLogout() {
             e.preventDefault();
             if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
                 AuthManager.logout();
-                window.location.href = '/login.html';
+                window.location.href = '/setup.html';
             }
         });
     }
@@ -186,7 +186,7 @@ function initLogout() {
 function displayCurrentUsername() {
     const currentUsernameEl = document.getElementById('currentUsername');
     if (currentUsernameEl) {
-        const username = localStorage.getItem('ressourcerie_admin_user') || 'admin';
+        const username = localStorage.getItem('r_user') || 'admin';
         currentUsernameEl.textContent = username;
     }
 }

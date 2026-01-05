@@ -12,10 +12,10 @@ const CATEGORIES = {
 
 const STORAGE_KEYS = {
     PRODUCTS: 'ressourcerie_products',
-    ADMIN_USER: 'ressourcerie_admin_user',
-    ADMIN_PASSWORD_HASH: 'ressourcerie_admin_password_hash',
-    ADMIN_SALT: 'ressourcerie_admin_salt',
-    IS_LOGGED_IN: 'ressourcerie_is_logged_in'
+    ADMIN_USER: 'r_user',
+    ADMIN_PASSWORD_HASH: 'r_pwd_hash',
+    ADMIN_SALT: 'r_salt',
+    IS_LOGGED_IN: 'r_auth'
 };
 
 // Fonction de hashage SHA-256
@@ -40,15 +40,10 @@ async function initDefaultData() {
         localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify([]));
     }
     
-    // Initialiser les identifiants admin par défaut uniquement s'ils n'existent pas
-    // Le mot de passe doit être configuré manuellement pour la sécurité
+    // Configuration utilisateur
     if (!localStorage.getItem(STORAGE_KEYS.ADMIN_USER)) {
         localStorage.setItem(STORAGE_KEYS.ADMIN_USER, 'admin');
     }
-    
-    // Ne pas initialiser de mot de passe par défaut pour la sécurité
-    // L'utilisateur doit configurer le mot de passe via l'interface admin ou la console
-    // Voir README.md pour les instructions
 }
 
 // Gestion des produits
@@ -169,7 +164,7 @@ const AuthManager = {
 
     requireAuth: function() {
         if (!this.isLoggedIn()) {
-            window.location.href = '/login.html';
+            window.location.href = '/setup.html';
             return false;
         }
         return true;
