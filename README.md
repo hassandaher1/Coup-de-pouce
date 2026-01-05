@@ -16,14 +16,11 @@ Site web statique pour une ressourcerie, déployable sur GitHub Pages sans serve
 .
 ├── index.html          # Page publique principale
 ├── login.html          # Page de connexion
-├── admin/
-│   └── index.html      # Page d'administration
 ├── css/
 │   └── styles.css      # Styles CSS
 ├── js/
 │   ├── data.js         # Gestion des données (localStorage)
 │   ├── app.js           # Logique de la page publique
-│   ├── admin.js         # Logique de la page admin
 │   └── login.js         # Logique de la page de connexion
 └── images/
     └── logo.jpeg        # Logo du site
@@ -35,8 +32,6 @@ Site web statique pour une ressourcerie, déployable sur GitHub Pages sans serve
 - ✅ Recherche de produits
 - ✅ Filtrage par catégorie
 - ✅ Modal de détail des produits
-- ✅ Interface d'administration pour ajouter/supprimer des produits
-- ✅ Authentification sécurisée
 - ✅ Stockage des données dans le navigateur (localStorage)
 - ✅ Design responsive mobile-first
 
