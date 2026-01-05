@@ -7,7 +7,7 @@
 <nav class="site-header">
     <div class="site-header__container">
         <a href="{% url 'public_home' %}" class="site-header__logo">
-            <img src="{% static 'images/logo-ressourcerie.png' %}" alt="Ressourcerie" class="site-header__logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+            <img src="{% static 'images/logo.jpeg' %}" alt="Ressourcerie" class="site-header__logo-image" onerror="this.style.display='none';">
             <span class="site-header__logo-text">Ressourcerie</span>
         </a>
         <div class="site-header__actions">
@@ -123,7 +123,9 @@
         </section>
     {% endif %}
 </main>
+{% endblock %}
 
+{% block footer %}
 <footer class="site-footer">
     <div class="site-footer__container">
         <div class="site-footer__content">

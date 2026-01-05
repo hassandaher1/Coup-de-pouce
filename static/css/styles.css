@@ -57,15 +57,21 @@ body {
     height: 40px;
     width: auto;
     object-fit: contain;
-    display: inline-block;
+    display: block;
+    flex-shrink: 0;
 }
 
 .site-header__logo-text {
-    display: none;
+    display: inline-block;
+    line-height: 1.2;
+    vertical-align: middle;
+    margin-left: 0;
 }
 
+/* Si le logo n'existe pas ou est masqué, le texte reste visible */
 .site-header__logo-image[style*="display: none"] ~ .site-header__logo-text {
-    display: inline;
+    display: inline-block;
+    margin-left: 0;
 }
 
 .site-header__actions {
@@ -154,10 +160,6 @@ body {
 
     .site-header__logo-image {
         height: 45px;
-    }
-
-    .site-header__logo-text {
-        display: inline;
     }
 }
 
@@ -853,15 +855,17 @@ textarea:focus {
 .site-footer {
     background-color: #ffffff;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
-    margin-top: 3rem;
+    margin-top: 0;
     padding-top: 0;
     width: 100%;
+    clear: both;
 }
 
 .site-footer__container {
     max-width: 100%;
     margin: 0 auto;
-    padding: 2rem 1rem 1.5rem 1rem;
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    width: 100%;
 }
 
 .site-footer__content {
@@ -926,7 +930,7 @@ textarea:focus {
 
 @media (min-width: 640px) {
     .site-footer__container {
-        padding: 2.5rem 1.5rem 2rem 1.5rem;
+        padding: 2.5rem 2rem 2rem 2rem;
     }
 
     .site-footer__content {
@@ -941,7 +945,7 @@ textarea:focus {
 
 @media (min-width: 900px) {
     .site-footer__container {
-        padding: 3rem 2rem 2rem 2rem;
+        padding: 3rem 3rem 2rem 3rem;
     }
 
     .site-footer__content {
@@ -951,8 +955,8 @@ textarea:focus {
 
 @media (min-width: 1200px) {
     .site-footer__container {
-        padding: 3rem 3rem 2rem 3rem;
-        max-width: 1400px;
+        padding: 3rem 4rem 2rem 4rem;
+        max-width: 100%;
     }
 }
 
