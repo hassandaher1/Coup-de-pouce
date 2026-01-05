@@ -25,9 +25,8 @@ Site web statique pour une ressourcerie, déployable sur GitHub Pages sans serve
 │   ├── app.js           # Logique de la page publique
 │   ├── admin.js         # Logique de la page admin
 │   └── login.js         # Logique de la page de connexion
-├── images/
-│   └── logo.jpeg        # Logo du site
-└── SETUP_SECURITY.md    # Guide de configuration sécurisée
+└── images/
+    └── logo.jpeg        # Logo du site
 ```
 
 ## 🔐 Identifiants par défaut
@@ -45,7 +44,7 @@ Site web statique pour une ressourcerie, déployable sur GitHub Pages sans serve
    - Entrez votre nouveau identifiant et/ou mot de passe
    - Cliquez sur "Mettre à jour les paramètres"
 
-2. **Consultez `SETUP_SECURITY.md`** pour plus de détails sur la sécurité
+2. **Via la console du navigateur** (voir section ci-dessous)
 
 ### Sécurité
 
@@ -104,8 +103,35 @@ const CATEGORIES = {
 };
 ```
 
+## 🔧 Changer le mot de passe via la console
+
+Si vous préférez changer le mot de passe directement, ouvrez la console du navigateur (F12) et exécutez :
+
+```javascript
+// Changer l'identifiant
+localStorage.setItem('ressourcerie_admin_user', 'votre-nouvel-identifiant');
+
+// Changer le mot de passe (hashé)
+async function setPassword(newPassword) {
+  const encoder = new TextEncoder();
+  const salt = Array.from(crypto.getRandomValues(new Uint8Array(16)), (b) =>
+    b.toString(16).padStart(2, "0")
+  ).join("");
+  const data = encoder.encode(newPassword + salt);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hash = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+  
+  localStorage.setItem("ressourcerie_admin_salt", salt);
+  localStorage.setItem("ressourcerie_admin_password_hash", hash);
+  console.log("Mot de passe mis à jour !");
+}
+await setPassword("VotreMotDePasseSecurise123!");
+```
+
 ## 📝 Notes
 
 - Les images sont converties en base64 et stockées dans localStorage
 - La taille maximale recommandée pour les images est d'environ 1-2 MB par image
 - Le site fonctionne entièrement hors ligne une fois chargé
+- Les identifiants sont stockés dans le localStorage du navigateur
