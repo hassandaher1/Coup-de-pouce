@@ -2,7 +2,7 @@
 
 // Vérifier si déjà connecté
 if (AuthMgr.isLoggedIn()) {
-    window.location.href = '/config/';
+    window.location.href = '/management/';
 }
 
 // Vérifier si un mot de passe a été configuré
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const success = await AuthMgr.login(username, password);
             if (success) {
-                window.location.href = '/config/';
+                window.location.href = '/management/';
             } else {
                 showError('Identifiant ou mot de passe incorrect.');
                 submitBtn.disabled = false;
