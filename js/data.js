@@ -131,7 +131,7 @@ const ProductManager = {
 };
 
 // Gestion de l'authentification
-const AuthManager = {
+const AuthMgr = {
     login: async function(username, password) {
         const storedUser = localStorage.getItem(STORAGE_KEYS.ADMIN_USER);
         const storedHash = localStorage.getItem(STORAGE_KEYS.ADMIN_PASSWORD_HASH);
