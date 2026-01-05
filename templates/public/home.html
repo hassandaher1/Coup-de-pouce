@@ -1,13 +1,31 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Ressourcerie - Découvrir les produits{% endblock %}
+
+{% block header %}
+<nav class="site-header">
+    <div class="site-header__container">
+        <a href="{% url 'public_home' %}" class="site-header__logo">
+            <img src="{% static 'images/logo-ressourcerie.png' %}" alt="Ressourcerie" class="site-header__logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+            <span class="site-header__logo-text">Ressourcerie</span>
+        </a>
+        <div class="site-header__actions">
+            <a href="tel:{{ phone_clean|default:'0123456789' }}" class="site-header__cta site-header__cta--phone" title="Appeler {{ phone_number|default:'01 23 45 67 89' }}">
+                <svg class="site-header__cta-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                <span>{{ phone_number|default:"01 23 45 67 89" }}</span>
+            </a>
+        </div>
+    </div>
+</nav>
+{% endblock %}
 
 {% block content %}
 <header class="top-hero top-hero--public">
     <div class="top-hero__overlay"></div>
     <div class="top-hero__content">
-        <h1 class="screen-title">La ressourcerie</h1>
-        <p class="screen-subtitle">Découvrez les objets disponibles, comme sur Leboncoin mais local.</p>
         <form method="get" class="search-bar">
             {% if category %}
                 <input type="hidden" name="category" value="{{ category }}">
@@ -34,37 +52,76 @@
 </header>
 
 <main class="screen screen--with-hero">
-    <section class="section">
-        <h2 class="section-title">Les dernières trouvailles</h2>
-        <div class="cards-grid">
-            {% for product in products %}
-                <article class="card card--product" data-product-id="{{ product.id }}"
-                         data-product-title="{{ product.title|escapejs }}"
-                         data-product-description="{{ product.description|linebreaksbr|escapejs }}"
-                         data-product-dimensions="{{ product.dimensions|escapejs }}"
-                         data-product-image="{% if product.image %}{{ product.image.url }}{% endif %}"
-                         data-product-alt="{{ product.image_alt|default:product.title|escapejs }}">
-                    <div class="card__image-wrapper">
-                        {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.image_alt|default:product.title }}">
-                        {% endif %}
-                    </div>
-                    <div class="card__body">
-                        <h3 class="card__title">{{ product.title }}</h3>
-                        <p class="card__meta">{{ product.get_category_display }}</p>
-                        {% if product.dimensions %}
-                            <p class="card__meta">{{ product.dimensions }}</p>
-                        {% endif %}
-                        <p class="card__excerpt">
-                            {{ product.description|truncatechars:80 }}
-                        </p>
-                    </div>
-                </article>
-            {% empty %}
+    {% if products_by_category %}
+        {# Affichage par catégorie avec scroll horizontal sur mobile #}
+        {% for cat_label, cat_products in products_by_category.items %}
+            <section class="section section--category">
+                <h2 class="section-title">{{ cat_label }}</h2>
+                <div class="cards-scroll">
+                    {% for product in cat_products %}
+                        <article class="card card--product card--scroll" data-product-id="{{ product.id }}"
+                                 data-product-title="{{ product.title|escapejs }}"
+                                 data-product-description="{{ product.description|linebreaksbr|escapejs }}"
+                                 data-product-dimensions="{{ product.dimensions|escapejs }}"
+                                 data-product-image="{% if product.image %}{{ product.image.url }}{% endif %}"
+                                 data-product-alt="{{ product.image_alt|default:product.title|escapejs }}">
+                            <div class="card__image-wrapper">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="{{ product.image_alt|default:product.title }}">
+                                {% endif %}
+                            </div>
+                            <div class="card__body">
+                                <h3 class="card__title">{{ product.title }}</h3>
+                                {% if product.dimensions %}
+                                    <p class="card__meta">{{ product.dimensions }}</p>
+                                {% endif %}
+                                <p class="card__excerpt">
+                                    {{ product.description|truncatechars:60 }}
+                                </p>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+        {% empty %}
+            <section class="section">
                 <p class="empty-state-text">Aucun produit n'est disponible pour le moment.</p>
-            {% endfor %}
-        </div>
-    </section>
+            </section>
+        {% endfor %}
+    {% else %}
+        {# Affichage normal (filtre ou recherche active) #}
+        <section class="section">
+            <h2 class="section-title">Les dernières trouvailles</h2>
+            <div class="cards-grid">
+                {% for product in products %}
+                    <article class="card card--product" data-product-id="{{ product.id }}"
+                             data-product-title="{{ product.title|escapejs }}"
+                             data-product-description="{{ product.description|linebreaksbr|escapejs }}"
+                             data-product-dimensions="{{ product.dimensions|escapejs }}"
+                             data-product-image="{% if product.image %}{{ product.image.url }}{% endif %}"
+                             data-product-alt="{{ product.image_alt|default:product.title|escapejs }}">
+                        <div class="card__image-wrapper">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.image_alt|default:product.title }}">
+                            {% endif %}
+                        </div>
+                        <div class="card__body">
+                            <h3 class="card__title">{{ product.title }}</h3>
+                            <p class="card__meta">{{ product.get_category_display }}</p>
+                            {% if product.dimensions %}
+                                <p class="card__meta">{{ product.dimensions }}</p>
+                            {% endif %}
+                            <p class="card__excerpt">
+                                {{ product.description|truncatechars:80 }}
+                            </p>
+                        </div>
+                    </article>
+                {% empty %}
+                    <p class="empty-state-text">Aucun produit n'est disponible pour le moment.</p>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
 </main>
 
 <footer class="site-footer">
@@ -138,7 +195,7 @@
             document.body.classList.remove('no-scroll');
         }
 
-        document.querySelectorAll('.card--product').forEach(function (card) {
+        document.querySelectorAll('.card--product, .card--scroll').forEach(function (card) {
             card.addEventListener('click', function () {
                 openModal(card);
             });

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -23,11 +24,30 @@ def public_home(request):
             Q(title__icontains=query) | Q(description__icontains=query)
         )
 
+    # Numéro de téléphone depuis les settings
+    phone_number = getattr(settings, 'PHONE_NUMBER', '01 23 45 67 89')
+    # Nettoyer le numéro pour le lien tel: (supprimer espaces, tirets, points)
+    phone_clean = phone_number.replace(' ', '').replace('-', '').replace('.', '').replace('(', '').replace(')', '')
+    
+    # Grouper les produits par catégorie si pas de filtre spécifique
+    products_by_category = {}
+    if not category and not query:
+        for cat_value, cat_label in Product.CATEGORY_CHOICES:
+            cat_products = products.filter(category=cat_value)[:5]  # Limiter à 5 produits par catégorie
+            if cat_products.exists():
+                products_by_category[cat_label] = cat_products
+    else:
+        # Si filtre actif, garder l'affichage normal
+        products_by_category = None
+    
     context = {
         "products": products,
+        "products_by_category": products_by_category,
         "query": query,
         "category": category,
         "categories": Product.CATEGORY_CHOICES,
+        "phone_number": phone_number,
+        "phone_clean": phone_clean,
     }
     return render(request, "public/home.html", context)
 

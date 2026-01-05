@@ -127,3 +127,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Contact information
+PHONE_NUMBER = "01 23 45 67 89"  # Numéro de téléphone de la ressourcerie

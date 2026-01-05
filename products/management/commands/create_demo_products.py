@@ -90,6 +90,111 @@ class Command(BaseCommand):
                 "color": (120, 144, 156),
                 "category": "bricolage",
             },
+            # Maison - produits supplémentaires
+            {
+                "title": "Vase en céramique artisanale",
+                "description": "Vase unique fait main à partir de céramique recyclée. Parfait pour fleurs séchées ou déco.",
+                "dimensions": "Ø 15 x 25 cm",
+                "color": (200, 180, 150),
+                "category": "maison",
+            },
+            {
+                "title": "Set de coussins récup",
+                "description": "3 coussins confectionnés à partir de tissus récupérés, housses lavables, rembourrage naturel.",
+                "dimensions": "40 x 40 cm chacun",
+                "color": (150, 130, 180),
+                "category": "maison",
+            },
+            # Mode - produits supplémentaires
+            {
+                "title": "Sac à main en cuir upcyclé",
+                "description": "Sac en cuir véritable récupéré et retravaillé, doublure intérieure, fermeture éclair fonctionnelle.",
+                "dimensions": "35 x 28 x 12 cm",
+                "color": (100, 80, 60),
+                "category": "mode",
+            },
+            {
+                "title": "Écharpe tricotée main",
+                "description": "Écharpe en laine recyclée, tricotée à la main, motifs géométriques, très douce.",
+                "dimensions": "180 x 30 cm",
+                "color": (140, 100, 120),
+                "category": "mode",
+            },
+            # Jouet - produits supplémentaires
+            {
+                "title": "Poupée en tissu faite main",
+                "description": "Poupée douce confectionnée à partir de chutes de tissu, rembourrage naturel, lavable.",
+                "dimensions": "30 cm de haut",
+                "color": (220, 180, 160),
+                "category": "jouet",
+            },
+            {
+                "title": "Puzzle en bois recyclé",
+                "description": "Puzzle 50 pièces en bois issu de chutes, motifs animaux, adapté dès 4 ans.",
+                "dimensions": "30 x 20 cm",
+                "color": (180, 160, 140),
+                "category": "jouet",
+            },
+            # Bricolage - produits supplémentaires
+            {
+                "title": "Étagère murale palette",
+                "description": "Étagère fabriquée à partir de palette recyclée, poncée et traitée, 3 niveaux.",
+                "dimensions": "80 x 25 x 60 cm",
+                "color": (160, 140, 110),
+                "category": "bricolage",
+            },
+            {
+                "title": "Boîte à outils vintage",
+                "description": "Boîte métallique rénovée contenant outils de base : clés, vis, boulons, etc.",
+                "dimensions": "40 x 25 x 15 cm",
+                "color": (100, 100, 100),
+                "category": "bricolage",
+            },
+            # Culture - produits supplémentaires
+            {
+                "title": "Livres d'occasion sélectionnés",
+                "description": "Lot de 5 livres en bon état, genres variés : roman, BD, guide pratique.",
+                "dimensions": "Format standard",
+                "color": (180, 150, 130),
+                "category": "culture",
+            },
+            {
+                "title": "Cadre photo en bois recyclé",
+                "description": "Cadre photo fait main à partir de bois récupéré, plusieurs tailles disponibles.",
+                "dimensions": "20 x 25 cm",
+                "color": (140, 120, 100),
+                "category": "culture",
+            },
+            # Sport - produits supplémentaires
+            {
+                "title": "Raquettes de badminton",
+                "description": "Paire de raquettes reconditionnées, cordage vérifié, manches en bon état.",
+                "dimensions": "Longueur 68 cm",
+                "color": (200, 200, 200),
+                "category": "sport",
+            },
+            {
+                "title": "Haltères ajustables",
+                "description": "Paire d'haltères avec poids ajustables, barre centrale en bon état.",
+                "dimensions": "Poids max 10 kg par haltère",
+                "color": (80, 80, 80),
+                "category": "sport",
+            },
+            # Meubles - produits supplémentaires
+            {
+                "title": "Étagère bibliothèque",
+                "description": "Étagère 5 niveaux en bois massif rénovée, idéale pour livres ou déco.",
+                "dimensions": "80 x 30 x 150 cm",
+                "color": (120, 100, 80),
+                "category": "meubles",
+            },
+            {
+                "title": "Tabouret bar upcyclé",
+                "description": "Tabouret haut rénové, assise en cuir récupéré, pieds métal peint.",
+                "dimensions": "Ø 35 x 75 cm",
+                "color": (90, 70, 50),
+                "category": "meubles",
+            },
         ]
 
         created = 0
