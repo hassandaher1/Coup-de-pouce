@@ -219,7 +219,7 @@ body:has(.app-shell--auth) .site-header {
 }
 
 .top-hero--admin {
-    background-image: linear-gradient(135deg, #00514d 0%, #a2d2f3 100%);
+    background: transparent;
 }
 
 .top-hero__overlay {
@@ -299,7 +299,7 @@ body:has(.app-shell--auth) .site-header {
     margin: 0;
     font-size: 0.9rem;
     font-weight: 400;
-    color: #e5e7eb;
+    color: #6b7280;
 }
 
 .section {
