@@ -79,64 +79,35 @@ function initFilters() {
     }
 }
 
-// Rendre les produits
+// Rendre les produits : toujours en grille (max 4 blocs par ligne sur ordinateur)
 function renderProducts() {
     const container = document.getElementById('productsContainer');
     if (!container) return;
 
     let products;
-    let productsByCategory = null;
-
     if (!category && !query) {
-        productsByCategory = getProductsByCategory();
+        products = getPublishedProducts();
     } else {
         products = searchProducts(query, category);
     }
 
     container.innerHTML = '';
 
-    if (productsByCategory && Object.keys(productsByCategory).length > 0) {
-        // Affichage par catégorie avec scroll horizontal
-        Object.entries(productsByCategory).forEach(([catLabel, catProducts]) => {
-            const section = document.createElement('section');
-            section.className = 'section section--category';
-            
-            const title = document.createElement('h2');
-            title.className = 'section-title';
-            title.textContent = catLabel;
-            
-            const scrollContainer = document.createElement('div');
-            scrollContainer.className = 'cards-scroll';
-            
-            catProducts.forEach(product => {
-                scrollContainer.appendChild(createProductCard(product));
-            });
-            
-            section.appendChild(title);
-            section.appendChild(scrollContainer);
-            container.appendChild(section);
-        });
-    } else if (products && products.length > 0) {
-        // Affichage normal (filtre ou recherche active)
+    if (products && products.length > 0) {
         const section = document.createElement('section');
         section.className = 'section';
-        
         const title = document.createElement('h2');
         title.className = 'section-title';
-        title.textContent = 'Les dernières trouvailles';
-        
+        title.textContent = !category && !query ? 'Tous les produits' : (category && CATEGORIES && CATEGORIES[category] ? CATEGORIES[category] : 'Résultats');
         const grid = document.createElement('div');
         grid.className = 'cards-grid';
-        
-        products.forEach(product => {
+        products.forEach(function(product) {
             grid.appendChild(createProductCard(product));
         });
-        
         section.appendChild(title);
         section.appendChild(grid);
         container.appendChild(section);
     } else {
-        // Aucun produit
         const section = document.createElement('section');
         section.className = 'section';
         const emptyText = document.createElement('p');
@@ -147,14 +118,10 @@ function renderProducts() {
     }
 }
 
-// Créer une carte produit
+// Créer une carte produit (toujours en grille, même dimensions)
 function createProductCard(product) {
     const card = document.createElement('article');
     card.className = 'card card--product';
-    if (category && !query) {
-        card.className += ' card--scroll';
-    }
-    
     card.dataset.productId = product.id;
     card.dataset.productTitle = escapeHtml(product.title);
     card.dataset.productDescription = escapeHtml(product.description || '').replace(/\n/g, '<br>');
@@ -253,7 +220,7 @@ function initModal() {
 
     // Ouvrir la modal au clic sur une carte
     document.addEventListener('click', function(e) {
-        const card = e.target.closest('.card--product, .card--scroll');
+        const card = e.target.closest('.card--product');
         if (card) {
             openModal(card);
         }

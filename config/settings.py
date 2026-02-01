@@ -15,7 +15,11 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or ("insecure-dev-only" if DEBU
 if not SECRET_KEY:
     raise ValueError("Set DJANGO_SECRET_KEY in production.")
 
-ALLOWED_HOSTS = [h.strip() for h in os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",") if h.strip()]
+# En dev (DEBUG), autoriser l'accès via IP pour tester sur téléphone (runserver 0.0.0.0:8000).
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = [h.strip() for h in os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",") if h.strip()]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
